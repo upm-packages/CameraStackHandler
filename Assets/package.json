@@ -1,0 +1,22 @@
+{
+  "name": "dev.upm-packages.camerastackhandler",
+  "displayName": "CameraStackHandler",
+  "version": "0.0.1",
+  "unity": "2019.2",
+  "description": "Add overlay camera into CameraStack for Scriptable Render Pipeline",
+  "author": {
+    "name": "Tetsuya Mori",
+    "url": "https://me.monry.dev/",
+    "email": "monry84@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [],
+  "category": "",
+  "dependencies": {
+    "com.unity.render-pipelines.universal": "7.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/upm-packages/CameraStackHandler"
+  }
+}

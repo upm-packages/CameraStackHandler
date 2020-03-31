@@ -1,0 +1,7 @@
+.npmignore
+yarn-debug.log*
+yarn-error.log*
+Tests/
+Tests.meta
+Examples/
+Examples.meta
