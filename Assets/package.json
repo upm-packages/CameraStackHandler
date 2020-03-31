@@ -1,7 +1,7 @@
 {
   "name": "dev.upm-packages.camerastackhandler",
   "displayName": "CameraStackHandler",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "unity": "2019.2",
   "description": "Add overlay camera into CameraStack for Scriptable Render Pipeline",
   "author": {
