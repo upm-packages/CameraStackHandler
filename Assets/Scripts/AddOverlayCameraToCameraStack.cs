@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -49,6 +50,14 @@ namespace UnityPackage.CameraStackHandler
             if (TargetCameraData != default && OverlayCamera != default)
             {
                 TargetCameraData.cameraStack.Remove(OverlayCamera);
+            }
+        }
+
+        private void Reset()
+        {
+            if (overlayCamera == default && GetComponent<Camera>() != default)
+            {
+                overlayCamera = GetComponent<Camera>();
             }
         }
     }
