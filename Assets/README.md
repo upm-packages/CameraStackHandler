@@ -41,13 +41,17 @@ As of Unity 2019.3.7f1, the Verified version is v7.1.8, so you'll need to expand
 
 ### Add component into Overlay Camera
 
-![image](https://user-images.githubusercontent.com/838945/78002961-ec87a500-7372-11ea-999f-d5c62ef81a71.png)
+![image](https://user-images.githubusercontent.com/838945/78094369-61a8b800-740f-11ea-842c-431a6144c017.png)
 
 1. Select `Overlay` to `Render Type` field of `Camera` component.
 1. Add `AddOverlayCameraToCameraStack` component.
 
-Note: `AddOverlayCameraToCameraStack` component will find `Overlay Camera` automatically from same GameObject on runtime. You can also set `Overlay Camera` manually 
- 
+#### Note
+
+* `AddOverlayCameraToCameraStack` component will find `Overlay Camera` automatically from same GameObject on runtime. You can also set `Overlay Camera` manually.
+    * Set field automatically when component attached (and invoked Reset).
+* Overwrite `Render Type` to `Overlay` on runtime if `Overwrite Render Type` field is set to `true`.
+
 ### Run
  
 ![image](https://user-images.githubusercontent.com/838945/78006249-b4369580-7377-11ea-9502-3a93efba442d.png)
