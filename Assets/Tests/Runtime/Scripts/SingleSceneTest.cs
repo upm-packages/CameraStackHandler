@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -47,7 +48,8 @@ namespace UnityPackage.CameraStackHandler.Tests.Runtime
         {
             BaseCamera.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Base;
             OverlayCamera.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Base;
-            OverlayCamera.gameObject.AddComponent<AddOverlayCameraToCameraStack>();
+            var addOverlayCameraToCameraStack = OverlayCamera.gameObject.AddComponent<AddOverlayCameraToCameraStack>();
+            addOverlayCameraToCameraStack.GetType().GetField("overwriteRenderType", BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(addOverlayCameraToCameraStack, false);
             yield return null;
             Assert.That(
                 BaseCamera
@@ -55,6 +57,24 @@ namespace UnityPackage.CameraStackHandler.Tests.Runtime
                     .cameraStack
                     .Count,
                 Is.Zero
+            );
+            yield return SceneManager.UnloadSceneAsync(SingleScene);
+        }
+
+        [UnityTest]
+        public IEnumerator OverwriteRenderTypeを真にするとCameraStackに追加される()
+        {
+            BaseCamera.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Base;
+            OverlayCamera.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Base;
+            var addOverlayCameraToCameraStack = OverlayCamera.gameObject.AddComponent<AddOverlayCameraToCameraStack>();
+            addOverlayCameraToCameraStack.GetType().GetField("overwriteRenderType", BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(addOverlayCameraToCameraStack, true);
+            yield return null;
+            Assert.That(
+                BaseCamera
+                    .GetUniversalAdditionalCameraData()
+                    .cameraStack
+                    .Contains(OverlayCamera),
+                Is.True
             );
             yield return SceneManager.UnloadSceneAsync(SingleScene);
         }

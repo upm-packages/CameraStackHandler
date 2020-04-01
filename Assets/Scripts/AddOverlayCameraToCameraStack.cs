@@ -9,8 +9,10 @@ namespace UnityPackage.CameraStackHandler
     public class AddOverlayCameraToCameraStack : MonoBehaviour
     {
         [SerializeField] private Camera overlayCamera = default;
+        [SerializeField] private bool overwriteRenderType = true;
 
         private Camera OverlayCamera => overlayCamera == default ? overlayCamera = GetComponent<Camera>() : overlayCamera;
+        private bool OverwriteRenderType => overwriteRenderType;
         private UniversalAdditionalCameraData TargetCameraData { get; set; }
 
         private void Start()
@@ -20,11 +22,13 @@ namespace UnityPackage.CameraStackHandler
                 return;
             }
 
-            if (OverlayCamera.GetUniversalAdditionalCameraData().renderType != CameraRenderType.Overlay)
+            if (OverlayCamera.GetUniversalAdditionalCameraData().renderType != CameraRenderType.Overlay && !OverwriteRenderType)
             {
                 Debug.LogWarning($"Camera component in {OverlayCamera.gameObject.name} does not seems to be Overlay Camera. Set 'Overlay' to RenderType field.");
                 return;
             }
+
+            OverlayCamera.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Overlay;
 
             TargetCameraData = FindObjectsOfType<Camera>()
                 .Select(x => (x.depth, data: x.GetUniversalAdditionalCameraData()))
