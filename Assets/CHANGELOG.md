@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0] - 2020-04-21
+
+Sort overlay camera when add stack
+
+### Features
+
+* #7 Sort overlay camera when add stack
+
 ## [1.1.0] - 2020-04-01
 
 Improve features
