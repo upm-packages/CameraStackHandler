@@ -59,3 +59,13 @@ As of Unity 2019.3.7f1, the Verified version is v7.1.8, so you'll need to expand
 Add Overlay Camera into Camera Stack of Base Camera automatically. 
 
 The base camera to be added is selected with the highest Priority value.
+
+## Notes
+
+### Camera Stack may not be configured well in some processing order.
+
+This is directly due to the process of adding a Camera managed by the AddOverlayCameraToCameraStack Component to the Camera Stack of Base Camera.
+
+When looking for a Base Camera to add, you can use `Camera.depth` (the value that appears as **Priority** in the Inspector.) values in descending order, the first one is used.
+
+Therefore, it is recommended to set a large value in `Camera.depth` to fix the camera to be added correctly.
