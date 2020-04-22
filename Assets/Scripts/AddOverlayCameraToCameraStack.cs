@@ -67,7 +67,7 @@ namespace UnityPackage.CameraStackHandler
 
         private void OnDestroy()
         {
-            if (TargetCameraData != default && OverlayCamera != default)
+            if (TargetCameraData != default && TargetCameraData.renderType == CameraRenderType.Base && OverlayCamera != default)
             {
                 TargetCameraData.cameraStack.Remove(OverlayCamera);
             }
