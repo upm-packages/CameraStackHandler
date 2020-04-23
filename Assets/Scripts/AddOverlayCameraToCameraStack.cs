@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -29,6 +30,13 @@ namespace UnityPackage.CameraStackHandler
                 return;
             }
 
+            var originalCameraStack = new List<Camera>();
+            if (OverlayCamera.GetUniversalAdditionalCameraData().renderType == CameraRenderType.Base)
+            {
+                originalCameraStack = OverlayCamera.GetUniversalAdditionalCameraData().cameraStack?.ToList();
+                OverlayCamera.GetUniversalAdditionalCameraData().cameraStack?.Clear();
+            }
+
             OverlayCamera.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Overlay;
             OverlayCamera.depth = priority;
 
@@ -45,6 +53,10 @@ namespace UnityPackage.CameraStackHandler
 
             var cameraStack = TargetCameraData.cameraStack.ToList();
             cameraStack.Add(OverlayCamera);
+            if (originalCameraStack != default && originalCameraStack.Any())
+            {
+                cameraStack.AddRange(originalCameraStack);
+            }
 
             TargetCameraData.cameraStack.Clear();
             foreach (var c in cameraStack.OrderBy(x => x.depth))
@@ -55,7 +67,7 @@ namespace UnityPackage.CameraStackHandler
 
         private void OnDestroy()
         {
-            if (TargetCameraData != default && OverlayCamera != default)
+            if (TargetCameraData != default && TargetCameraData.renderType == CameraRenderType.Base && OverlayCamera != default)
             {
                 TargetCameraData.cameraStack.Remove(OverlayCamera);
             }
