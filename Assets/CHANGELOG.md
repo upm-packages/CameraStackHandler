@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1] - 2020-04-23
+
+Take over CameraStack
+
+### Fixes
+
+* #5 Take over CameraStack already set when RenderType changes to Overlay Camera
+
 ## [1.2.0] - 2020-04-21
 
 Sort overlay camera when add stack
